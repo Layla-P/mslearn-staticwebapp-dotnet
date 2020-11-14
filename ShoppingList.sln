@@ -9,11 +9,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Data", "Data\Data.csproj", 
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Api", "Api\Api.csproj", "{04B49CE2-CFC8-42CB-B229-1F54F527E15E}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".github", ".github", "{EA3E1B1F-ABC6-4935-8021-2461BFED2ADB}"
-ProjectSection(SolutionItems) = preProject
-	.github\workflows\azure-static-web-apps-purple-desert-08dde6010.yml = .github\workflows\azure-static-web-apps-purple-desert-08dde6010.yml
-EndProjectSection
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -66,5 +61,7 @@ Global
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {EC9ADCA0-AF9C-4DCA-971A-A96B676B5A8A}
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
 	EndGlobalSection
 EndGlobal
