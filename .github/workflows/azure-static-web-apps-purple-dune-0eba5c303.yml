@@ -19,11 +19,11 @@ jobs:
         with:
           submodules: true
 
-      - name: Run npm install
-        run: npm install
+      - name: Make node modules directory
+        run: mkdir -p ./Client/node_modules
 
-      - name: Install Gulp CLI
-        run: npm install gulp-cli
+      - name: Run npm install
+        run: npm install --prefix ./Client ./Client
 
       - name: Run Gulp tasks
         run: gulp --gulpfile '${{ github.workspace }}/Client/gulpfile.js' css:prod
