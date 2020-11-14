@@ -18,6 +18,16 @@ jobs:
       - uses: actions/checkout@v2
         with:
           submodules: true
+
+      - name: Run npm install
+        run: npm install
+
+      - name: Install Gulp CLI
+        run: npm install gulp-cli
+
+      - name: Run Gulp tasks
+        run: gulp --gulpfile '${{ github.workspace }}\gulpfile.js' css:prod
+
       - name: Build And Deploy
         id: builddeploy
         uses: Azure/static-web-apps-deploy@v0.0.1-preview
