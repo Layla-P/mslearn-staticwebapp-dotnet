@@ -1,4 +1,8 @@
 {
+  "scripts":  {
+    "build": ""
+  },
+  
   "devDependencies": {
     "autoprefixer": "^9.7.4",
     "gulp-cli": "2.3.0",
