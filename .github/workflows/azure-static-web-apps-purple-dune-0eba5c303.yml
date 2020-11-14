@@ -8,6 +8,9 @@ on:
     types: [opened, synchronize, reopened, closed]
     branches:
       - main
+      
+env:
+   DOTNET_VERSION: '5.0.100'        
 
 jobs:
   build_client_job:
@@ -26,9 +29,27 @@ jobs:
 
       - name: Run Gulp tasks
         run: gulp --gulpfile '${{ github.workspace }}/Client/gulpfile.js' css:prod
+   
+  build-dotnet_job:
+    runs-on: ubuntu-latest
+    steps:
+
+      # Checkout the repo
+      - uses: actions/checkout@master
+      
+      # Setup .NET Core SDK
+      - name: Setup .NET Core
+        uses: actions/setup-dotnet@v1
+        with:
+          dotnet-version: ${{ env.DOTNET_VERSION }} 
+      
+      # Run dotnet build and publish
+      - name: dotnet build
+        run: |
+          dotnet build --configuration Release
+   
           
-          
-  build_dotnet_job:
+  deploy_dotnet_job:
     runs-on: ubuntu-latest
     name: Build and Deploy dotnet Job
     steps:
@@ -36,7 +57,7 @@ jobs:
         with:
           submodules: true
 
-      - name: Build And Deploy dotnet
+      - name: Deploy dotnet
         id: builddeploy
         uses: Azure/static-web-apps-deploy@v0.0.1-preview
         with:
