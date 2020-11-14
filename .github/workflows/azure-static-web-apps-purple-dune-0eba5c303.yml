@@ -10,7 +10,7 @@ on:
       - main
       
 env:
-   DOTNET_VERSION: '3.1.10'        
+   DOTNET_VERSION: '3.1.404'        
 
 jobs:
   build_client_job:
