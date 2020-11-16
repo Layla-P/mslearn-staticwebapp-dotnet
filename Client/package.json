@@ -1,4 +1,10 @@
 {
+  "scripts": {
+    "build": "npm run css:prod && npm run dotnet:publish",
+    "css:prod": "gulp css:prod",
+    "dotnet:publish": "dotnet publish -c Release -o dist"
+  },
+
   "devDependencies": {
     "autoprefixer": "^9.7.4",
     "gulp-cli": "2.3.0",

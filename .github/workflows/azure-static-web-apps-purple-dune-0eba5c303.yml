@@ -10,55 +10,19 @@ on:
       - main
       
 env:
-   DOTNET_VERSION: '3.1.404'
-   DOTNET_PLATFORM_VERSION: '5.0.0'
+   DOTNET_VERSION: '3.1.9'
 
 jobs:
-  build_client_job:
+  build_job:
     runs-on: ubuntu-latest
-    name: Build Client Job
+    name: Build and deploy
     steps:
       - uses: actions/checkout@v2
         with:
           submodules: true
           
-      - name: Make node modules directory
-        run: mkdir -p ./Client/node_modules
-
-      - name: Run npm install
-        run: npm install --prefix ./Client ./Client
-
-      - name: Run Gulp tasks
-        run: gulp --gulpfile '${{ github.workspace }}/Client/gulpfile.js' css:prod
-   
-  build-dotnet_job:
-    runs-on: ubuntu-latest
-    steps:
-
-      # Checkout the repo
-      - uses: actions/checkout@master
-      
-      # Setup .NET Core SDK
-      - name: Setup .NET Core
-        uses: actions/setup-dotnet@v1
-        with:
-          dotnet-version: ${{ env.DOTNET_VERSION }} 
-      
-      # Run dotnet build and publish
-      - name: dotnet build
-        run: |
-          dotnet build --configuration Release
-   
-          
-  deploy_dotnet_job:
-    runs-on: ubuntu-latest
-    name: Build and Deploy dotnet Job
-    steps:
-      - uses: actions/checkout@v2
-        with:
-          submodules: true
-
-      - name: Deploy dotnet
+     
+      - name: Deploy
         id: builddeploy
         uses: Azure/static-web-apps-deploy@v0.0.1-preview
         with:
@@ -70,8 +34,11 @@ jobs:
           # For more information regarding Static Web App workflow configurations, please visit: https://aka.ms/swaworkflowconfig
           app_location: "Client" # App source code path
           api_location: "Api" # Api source code path - optional
-          output_location: "wwwroot" # Built app content directory - optional
+          app_artifact_location: "${{ github.workspace }}/Client/dist/wwwroot" # Built app content directory - optional
 
+        env:
+          DOTNET_VERSION: ${{ env.DOTNET_VERSION }}
+          
   close_pull_request_job:
     if: github.event_name == 'pull_request' && github.event.action == 'closed'
     runs-on: ubuntu-latest
